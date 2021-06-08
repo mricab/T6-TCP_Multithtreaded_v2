@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{4A2FBE0E-7C9A-4666-9FAF-62AB53452D1C}|Default">
+  <MonoDevelop.Ide.ItemProperties.client PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="client/ServerHandler/ServerHandler.cs">
+    <Files>
+      <File FileName="client/Program.cs" Line="27" Column="1" />
+      <File FileName="client/Client.cs" Line="110" Column="1" />
+      <File FileName="client/KeepAlive.cs" Line="78" Column="44" />
+      <File FileName="client/ServerHandler/ServerHandler.cs" Line="44" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Client" expanded="True">
+            <Node name="client" expanded="True" selected="True">
+              <Node name="KeepAlive" expanded="True" />
+              <Node name="ServerHandler" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|anycpu" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

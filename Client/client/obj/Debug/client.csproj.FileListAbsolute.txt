@@ -1,0 +1,5 @@
+/Users/marce/Proyectos/Distribuidos/T6-TCP_Multithreaded/Client/client/bin/Debug/client.exe
+/Users/marce/Proyectos/Distribuidos/T6-TCP_Multithreaded/Client/client/bin/Debug/client.pdb
+/Users/marce/Proyectos/Distribuidos/T6-TCP_Multithreaded/Client/client/obj/Debug/client.csproj.CoreCompileInputs.cache
+/Users/marce/Proyectos/Distribuidos/T6-TCP_Multithreaded/Client/client/obj/Debug/client.exe
+/Users/marce/Proyectos/Distribuidos/T6-TCP_Multithreaded/Client/client/obj/Debug/client.pdb

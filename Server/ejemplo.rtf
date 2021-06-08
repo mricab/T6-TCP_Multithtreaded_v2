@@ -1,0 +1,239 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10260\viewh16380\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Clases\
+	Cliente\
+	x	ControladorConexionesClientes\
+	x	ControladorMensajesClientes\
+	x	DataCliente\
+	x	DataConexion\
+	x	EventoConexion\
+	x	EventoMensaje\
+	x	IEscuchadorConexion\
+	x	ServidorSocket\
+	VistaServidor\
+\
+\
+ServidorSocket implements IEscuchadorConexion\
+\
+	priv ServerSocket Servidor = null;\
+	priv HashMap<String, DataCliente> ClientesConectados;\
+	priv ControladorConexionesClientes ControladorClientes = null;\
+\
+	public ServidorSocket (int Puerto)\
+	\{\
+		try\
+			Servidor = new ServerSocket(Puerto);\
+			ClientesConectados = new HashMap<String,DataCliente>();\
+			ControladorClientes = new \
+				ControladorConexionesClientes(Servidor);\
+			ControladorClientes.addEscuchadorConexion(this);\
+		catch (IOException ioe)\
+			\
+		finally\
+			\
+	\}	\
+\
+	public OnClienteConectado(EventoConexion e) \{ \}\
+	public OnClienteDesconectado(EventoConexion e) \{ \}\
+	public OnMensajeCliente(EventoConexion e)  \{ \}\
+\
+\
+\
+EventoConexion extends EventObject\
+	\
+	DataConexion Dato;\
+\
+	pubic EventoConexion (Object source, DataConexion d)\
+	\{\
+		super(source);\
+		Dato = d;\
+	\}\
+\
+\
+\
+DataConexi\'f3n\
+\
+	priv Stron IP;\
+	priv String Host;\
+	priv Socket SocketCliente;\
+\
+	public DataConexion(String IP, String Dato, Socket s)\
+	\{\
+		this.Host = Dato;\
+		this.IP = IP;\
+		this.SocketCliente = s;\
+	\}\
+\
+	public String getHost() \{ return Host \}\
+	public Void setHost(String Host) \{ this.Host = Host \}\
+	public Socket getSocketCliente() \{.return SocketCliente; \}\
+	public Void setSocketCliente (Socket SocketCliente) \{ this.SocketCliente = 		SocketCliente;\}\
+	public String getIP() \{ \'bf? \}\
+	\
+\
+\
+public interface IEscuchadorConexion extends EventListener\
+\
+	public void OnClienteConectado (EventoConexion e);\
+	public void OnClienteDesconectado (EventoConexion e);\
+	public void OnMensajeCliente (EventoMensaje e); \
+		// No deber\'eda estar juntos a los 2 primeros eventos\
+		// Si se necesitan tipos de eventos, se deber\'edan suscribir a 2 interfaces\
+\
+\
+\
+public class ControladorConexionesClientes extends Thread\
+\
+	ServerSocket Servidor;\
+	priv bool Continue = true; \
+	priv EventListenerList ListaEscuchadores = null; //Lista parametrizada\
+\
+	ControladorConexionesClientes (ServerSocket s)\
+	\{\
+		Servidor = s;\
+		ListaEscuchadores = new EventListenerList();\
+	\}\
+\
+	DespachadorEventoConexion (EventoConexion e)\
+	\{\
+		IEscuchadorConexion[] ls =  \
+			ListaEscuchadores.getListeners(IEscuchadorConexion.class\'85\
+		for(IEscuchadorConexion l : ls) \{\
+			l.OnClienteConectado(e);	//Envia el evento a todos.\
+		\}\
+	\}\
+\
+	addEscuchadorConexion (IEscuchadorConexion I)\
+	\{\
+		ListaEscuchadores.add(IEscuchadorConexion.class, I);\
+	\}\
+\
+	removeEscuchadorConexion(IEscuchadorConexion I)\
+	\{\
+	\}\
+\
+	public void run() \
+	\{\
+		while(continue)\
+		\{\
+			try\
+				Socket clienteSocket = Servidor.accept();\
+				DespachadorEventoConexion(new EventoConexion(this, new 					DataConexion(cliente\'85.\
+			catch(IOException ioe)\
+				// Implementar\
+			finally\
+				// Implementar\
+		\}\
+	\}\
+\
+	start() //Aumentar\
+\
+	stop() //Aumentar\
+\
+\
+\
+public class EventoMensaje extends EventObject \
+\
+	String message;\
+	\
+	public EventoMensaje(Object o, String msg)\
+	\{\
+		super(o)\
+		message = msg;\
+	\} \
+\
+\
+\
+public class DataCliente\
+\
+	priv Socket SocketCliente;\
+	priv ControladorMensajesClientes hiloCliente;\
+\
+	public Socket getSocketCliente() \{ return SocketCliente; \}\
+	public ControladorMensajesClientes getHilo \{ return hiloCliente; \}\
+	public voir setHiloCliente() \{ \'bf? \}\
+	public voir setSocketCliente() \{ \'bf? \}\
+\
+\
+\
+public class ControladorMensajesClientes extends Thread\
+\
+	priv Socket clienteSocket;\
+	priv bool Continue = true; \
+	priv EventListenerList ListaEscuchadores = null; //Lista parametrizada\
+	piro DataInputStream in = null;\
+\
+	ControladorMensajesClientes (ServerSocket owner, Socket s)\
+	\{\
+		clienteSocket = s;\
+		ListaEscuchadores = new EventListenerList();\
+	\}\
+\
+	DespachadorEventoConexion (EventoConexion e)\
+	\{\
+		IEscuchadorConexion[] ls =  \
+			ListaEscuchadores.getListeners(IEscuchadorConexion.class\'85\
+\
+		for(IEscuchadorConexion l : ls) \{\
+			l.OnClienteConectado(e);	//Envia el evento a todos.\
+		\}\
+	\}\
+\
+	addEscuchadorConexion (IEscuchadorConexion I)\
+	\{\
+		ListaEscuchadores.add(IEscuchadorConexion.class, 1);\
+	\}\
+\
+	removeEscuchadorConexion(IEscuchadorConexion I)\
+	\{\
+		ListaEscuchadores.remove(IEscuchadorConexion.class, 1);\
+	\}\
+\
+	public void run() \
+	\{\
+\
+		try\
+			in = new \
+			DataInputStream(clienteSocket.getInputSteam();\
+\
+			while(continue)\
+			\{\
+				Socket clienteCommando = in.readUTF();\
+				DespachadorEventoMensaje(new  	\
+					EventoMensaje(this, ClienteCommando))\
+			\}\
+\
+				\
+		catch(Exception e)\
+			System.out.println(e.getMessage());\
+		finally\
+			try\
+				in.close();\
+				clientSocket.close();\
+				System.out.println(\'93terminado\'94;\
+			catch(IOException ioe)\
+				\'85		\
+	\}\
+\
+	start() //Aumentar\
+\
+	stop() //Aumentar\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
